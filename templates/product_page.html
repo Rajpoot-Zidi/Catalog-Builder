@@ -21,7 +21,11 @@
           </div>
           <div class="product-card-text">
             <h3 class="product-card-title">{{ product.product_name }}</h3>
-            <span class="product-card-price">${{ "%.2f"|format(product.price) }}</span>
+            {% if product.price is not none %}
+              <span class="product-card-price">${{ "%.2f"|format(product.price) }}</span>
+            {% else %}
+              <span class="product-card-price"></span>
+            {% endif %}
           </div>
         </div>
       {% endfor %}

@@ -7,7 +7,8 @@ class ProductModel(BaseModel):
     category: str = Field(..., alias="Category")
     sku: str = Field(..., alias="SKU")
     product_name: str = Field(..., alias="Product Name")
-    price: float = Field(..., alias="Price")
+    # Make price optional so catalogs without prices can be generated
+    price: Optional[float] = Field(None, alias="Price")
     image_url: str = Field(..., alias="Image URL")
     
     # Optional fields
@@ -21,19 +22,26 @@ class ProductModel(BaseModel):
     @field_validator("price", mode="before")
     @classmethod
     def parse_price(cls, v):
+        # Allow missing/empty price (None or empty string) and keep it as None
+        if v is None:
+            return None
         if isinstance(v, str):
+            s = v.strip()
+            if s == "" or s.lower() == "nan":
+                return None
             # Strip currency signs if any
-            v = v.replace("$", "").replace("€", "").replace("£", "").strip()
+            s = s.replace("$", "").replace("€", "").replace("£", "").strip()
             # Handle commas as thousands or decimal separators depending on formatting
-            if "," in v and "." in v:
-                v = v.replace(",", "")
-            elif "," in v and len(v.split(",")[-1]) == 2:
+            if "," in s and "." in s:
+                s = s.replace(",", "")
+            elif "," in s and len(s.split(",")[-1]) == 2:
                 # e.g. "12,99"
-                v = v.replace(",", ".")
+                s = s.replace(",", ".")
+            v = s
         try:
-            return float(v)
+            return None if v is None else float(v)
         except (ValueError, TypeError):
-            raise ValueError(f"Price must be a valid number, got: {v}")
+            raise ValueError(f"Price must be a valid number or empty, got: {v}")
 
     @field_validator("sku", "category", "product_name", "image_url", mode="before")
     @classmethod
@@ -83,8 +91,8 @@ def load_products_from_file(file_path: str) -> List[ProductModel]:
     # Standardize column headers by stripping whitespace
     df.columns = [str(c).strip() for c in df.columns]
 
-    # Required column validation
-    required_cols = ["Category", "SKU", "Product Name", "Price", "Image URL"]
+    # Required column validation (price is optional now)
+    required_cols = ["Category", "SKU", "Product Name", "Image URL"]
     missing_cols = [col for col in required_cols if col not in df.columns]
     if missing_cols:
         # Try case-insensitive matching if direct match failed
