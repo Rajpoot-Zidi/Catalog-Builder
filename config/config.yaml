@@ -1,0 +1,36 @@
+# Catalog Configuration
+catalog:
+  title: "AUSTRALIA'S TRUSTED WHOLESALE SUPPLIER"
+  subtitle: "Bulk Cleaning, Grocery, Packaging & Everyday Essentials — All in One Place"
+  tagline: "Trusted Brands & Quality Products"
+  year: 2026
+  website: "www.wholesaleselect.com.au"
+  logo_path: "images/branding/logo.png"
+  hero_image_path: "images/branding/hero.jpg"
+
+
+layout:
+  page_size: "A4"          # "A4" or "Letter"
+  orientation: "portrait"  # "portrait" or "landscape"
+  grid:
+    columns: 4
+    rows: 4
+  renderer: "auto"         # "auto", "playwright", or "weasyprint"
+  show_toc: false          # TOC page disabled to match mockup layout flow
+  show_category_covers: false # Category cover separator pages disabled
+  group_by_category: false # Paginate sequentially across all products to fill grids (4x4 per page)
+
+theme:
+  primary_color: "#009639" # Wholesale Select Green
+  accent_color: "#009639"  # Green accent for grid borders and page styling
+  text_color: "#000000"
+  bg_color: "#faf8f0"      # Off-white / cream background for cover
+  # Note: cover pages have been removed; bg_color remains for legacy theming
+  card_bg_color: "#ffffff" # White cards inside the product grid
+  font_family: "'Outfit', 'Inter', sans-serif"
+
+images:
+  cache_dir: "images/cache"
+  max_width: 600           # Image compression limit
+  max_height: 600
+  quality: 85

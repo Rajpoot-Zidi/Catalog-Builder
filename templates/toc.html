@@ -1,0 +1,24 @@
+<div class="page page-toc">
+  <div class="page-header">
+    <span>{{ config.catalog.title }}</span>
+    <span>{{ config.catalog.year }}</span>
+  </div>
+  
+  <div class="page-content">
+    <h2>Table of Contents</h2>
+    <div class="toc-list">
+      {% for entry in page.entries %}
+        <div class="toc-item">
+          <span class="toc-category">{{ entry.category }}</span>
+          <span class="toc-leader"></span>
+          <span class="toc-page">{{ entry.page_num }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>{{ config.catalog.website }}</span>
+    <span>Page {{ page.page_num }} of {{ page.total_pages }}</span>
+  </div>
+</div>

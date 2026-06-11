@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ config.catalog.title }}</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Configured Brand Customizations */
+    :root {
+      --primary-color: {{ config.theme.primary_color }};
+      --accent-color: {{ config.theme.accent_color }};
+      --text-color: {{ config.theme.text_color }};
+      --bg-color: {{ config.theme.bg_color }};
+      --card-bg-color: {{ config.theme.card_bg_color }};
+      --font-family: {{ config.theme.font_family }};
+    }
+  </style>
+</head>
+<body>
+  {% for page in pages %}
+    {% if page.type == 'toc' %}
+      {% include 'toc.html' %}
+    {% elif page.type == 'category_cover' %}
+      {% include 'category_cover.html' %}
+    {% elif page.type == 'products' %}
+      {% include 'product_page.html' %}
+    {% endif %}
+  {% endfor %}
+</body>
+</html>

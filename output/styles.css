@@ -1,0 +1,189 @@
+/* Design System Tokens for Wholesale Select */
+:root {
+  --primary-color: #009639; /* Wholesale Green */
+  --accent-color: #009639;
+  --text-color: #000000;
+  --bg-color: #faf8f0;      /* Cover Off-white/Cream */
+  --card-bg-color: #ffffff;
+  --font-family: 'Outfit', 'Inter', sans-serif;
+  --border-color: #009639;
+}
+
+/* Page Scaffolding for A4 Portrait */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: #e2e8f0; /* Browser backdrop */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Page Frame */
+.page {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+  /* Browser preview shadow */
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  margin: 15px auto; /* Centered in browser preview */
+}
+
+/* Print resets to remove margins and shadows */
+@media print {
+  body {
+    background-color: #ffffff;
+  }
+  .page {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+    break-after: page;
+  }
+}
+
+/* Cover page styles removed (cover pages are no longer part of the catalog) */
+
+/* ==========================================================================
+   2. Wholesale Product Grid Page Style
+   ========================================================================== */
+.page-product-grid {
+  /* Green-to-white gradient top and bottom */
+  background: linear-gradient(to bottom, #65da58 0%, #ffffff 18%, #ffffff 82%, #65da58 100%);
+  padding: 16mm 14mm 16mm 14mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-page-header {
+  text-align: center;
+  margin-bottom: 5mm;
+}
+
+.category-header-title {
+  font-size: 34pt;
+  font-weight: 800;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.product-page-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 232mm; /* Constrained vertical grid region */
+}
+
+/* 4x4 Grid Container */
+.products-grid-custom {
+  display: grid;
+  column-gap: 4mm;
+  row-gap: 4.5mm;
+  width: 100%;
+  height: 100%;
+  /* Allow template to set grid dimensions via CSS variables */
+  grid-template-columns: repeat(var(--grid-cols, 4), 1fr);
+  grid-template-rows: repeat(var(--grid-rows, 4), 1fr);
+}
+
+/* Product Cards */
+.product-card-custom {
+  background-color: var(--card-bg-color);
+  border: 2.2px solid var(--primary-color);
+  border-radius: 1px;
+  padding: 3mm 2.5mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 52.5mm; /* 4 cards fit vertically in 232mm */
+  overflow: hidden;
+}
+
+.product-card-image-box {
+  width: 100%;
+  height: 28mm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.product-card-img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+}
+
+.product-card-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-top: 1mm;
+}
+
+.product-card-title {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1mm 0;
+  line-height: 1.25;
+  text-transform: uppercase;
+  width: 100%;
+  
+  /* Strict 2-line clamp */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.5em;
+  /* Standard line-clamp fallback */
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.product-card-price {
+  font-size: 13.5pt;
+  font-weight: 850;
+  color: #000000;
+  line-height: 1;
+  margin-top: 0.5mm;
+}
+
+/* Hollow cell placeholder to complete grid borders */
+.product-card-custom.empty-cell {
+  background-color: transparent;
+  border: 2.2px solid rgba(0, 150, 57, 0.35); /* Muted border for empty placeholders */
+  justify-content: center;
+}
+
+.product-page-footer {
+  text-align: right;
+  font-size: 9pt;
+  font-weight: 700;
+  color: #000000;
+  margin-top: 3mm;
+  padding-right: 2mm;
+}

@@ -1,0 +1,42 @@
+<div class="page page-product-grid">
+  <div class="product-page-header">
+    {# If pagination used a synthetic '__ALL__' category, show the first product's category instead #}
+    {% if page.category == '__ALL__' %}
+      {% if page.products and page.products|length > 0 %}
+        <h1 class="category-header-title">{{ page.products[0].category }}</h1>
+      {% else %}
+        <h1 class="category-header-title"></h1>
+      {% endif %}
+    {% else %}
+      <h1 class="category-header-title">{{ page.category }}</h1>
+    {% endif %}
+  </div>
+  
+  <div class="product-page-content">
+  <div class="products-grid-custom" style="--grid-cols: {{ page.grid_cols }}; --grid-rows: {{ page.grid_rows }};">
+      {% for product in page.products %}
+        <div class="product-card-custom">
+          <div class="product-card-image-box">
+            <img class="product-card-img" src="{{ product.image_url }}" alt="{{ product.product_name }}">
+          </div>
+          <div class="product-card-text">
+            <h3 class="product-card-title">{{ product.product_name }}</h3>
+            <span class="product-card-price">${{ "%.2f"|format(product.price) }}</span>
+          </div>
+        </div>
+      {% endfor %}
+      
+      <!-- Fill remaining slots to maintain a perfect 4x4 grid layout with complete borders -->
+      {% set total_cells = page.grid_cols * page.grid_rows %}
+      {% if page.products|length < total_cells %}
+        {% for i in range(total_cells - page.products|length) %}
+          <div class="product-card-custom empty-cell"></div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-page-footer">
+    <span>Page {{ page.page_num }}</span>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="page page-cover">
+  <!-- Left Green Bar -->
+  <div class="cover-green-bar"></div>
+  
+  <!-- Top-Right Curve Decorative Shape -->
+  <div class="cover-top-right-shape">
+    <svg width="100%" height="100%" viewBox="0 0 100 150" preserveAspectRatio="none">
+      <!-- white concentric arcs centered at top-right (100, 0) -->
+      <circle cx="100" cy="0" r="40" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.6" />
+      <circle cx="100" cy="0" r="65" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.6" />
+      <circle cx="100" cy="0" r="90" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.6" />
+    </svg>
+  </div>
+  
+  <div class="cover-main-content">
+    {% if page.logo %}
+      <div class="logo-container">
+        <img class="logo-large" src="{{ page.logo }}" alt="Logo">
+        <div class="logo-website">{{ config.catalog.website }}</div>
+      </div>
+    {% endif %}
+    
+    <h1 class="cover-headline">{{ page.title }}</h1>
+    
+    <div class="cover-divider"></div>
+    
+    <p class="cover-description">{{ page.subtitle }}</p>
+    
+    {% if config.catalog.tagline %}
+      <p class="cover-tagline">{{ config.catalog.tagline }}</p>
+    {% endif %}
+  </div>
+  
+  <!-- Two Cover Images Side-by-Side at the Bottom -->
+  <div class="cover-bottom-images">
+    <div class="cover-img-col">
+      {% if page.cover_image_left %}
+        <img class="cover-col-img" src="{{ page.cover_image_left }}" alt="Snacks">
+      {% endif %}
+    </div>
+    <div class="cover-img-col">
+      {% if page.cover_image_right %}
+        <img class="cover-col-img" src="{{ page.cover_image_right }}" alt="Catering">
+      {% endif %}
+    </div>
+  </div>
+</div>
